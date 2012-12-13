@@ -51,7 +51,7 @@ define common::concatenated_file (
 			'' => '',
 			default => "| cat - '${footer}' "
 		},
-		default => $footer ? { 
+		default => $footer ? {
 			'' => "| cat '${header}' - ",
 			default => "| cat '${header}' - '${footer}' "
 		}
@@ -60,9 +60,6 @@ define common::concatenated_file (
 	# use >| to force clobbering the target file
 	exec { "concat_${name}":
 		command => "/usr/bin/find ${dir_real} -maxdepth 1 -type f ! -name '*puppettmp' -print0 | sort -z | xargs -0 cat ${additional_cmd} >| ${name}",
-		refreshonly => true,
-		subscribe => [ File[$dir_real] ],
-		before => File[$name],
         refreshonly => true,
         subscribe => [ File[$dir_real] ],
         before => File[$name],
