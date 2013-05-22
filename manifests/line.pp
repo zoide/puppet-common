@@ -38,5 +38,3 @@ define common::line($file, $line, $ensure = 'present') {
 		}
 	}
 }
-
-
