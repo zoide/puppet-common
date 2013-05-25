@@ -23,7 +23,11 @@
 # }
 #
 #
-define common::line($file, $line, $ensure = 'present') {
+define common::line($file, $line=false, $ensure = 'present') {
+	$line_r = $line ? {
+	  false => $name,
+	 default => $line,
+	}
 	case $ensure {
 		default : { err ( "unknown ensure value '${ensure}'" ) }
 		present: {
