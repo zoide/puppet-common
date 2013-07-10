@@ -26,7 +26,6 @@
 # /etc/munin/munin-node.conf, and if there are any changes notify the
 # service for a restart
 #
-<<<<<<< HEAD:manifests/line.pp
 define common::line($file, $line=false, $ensure = 'present') {
 	$line_r = $line ? {
 	  false => $name,
@@ -42,35 +41,6 @@ define common::line($file, $line=false, $ensure = 'present') {
 		absent: {
 			exec { "perl -ni -e 'print if \$_ ne \"${line_r}\n\";' '${file}'":
 				onlyif => "grep -qFx '${line_r}' '${file}'"
-=======
-#  line {
-#  	allow_munin_host:
-#  		file => "/etc/munin/munin-node.conf",
-#  		line => "allow ^$munin_host$",
-#  		ensure => present,
-#  		notify => Service[munin-node],
-#  		require => Package[munin-node];
-#  }
-define line(
-	$file,
-	$line="",
-	$ensure = 'present'
-) {
-    $l_real = $line ? {
-        "" => $name,
-        default => $line,
-    }
-	case $ensure {
-		default : { err ( "unknown ensure value '${ensure}'" ) }
-		present: {
-			exec { "echo '${l_real}' >> '${file}'":
-				unless => "grep -qFx '${l_real}' '${file}'"
-			}
-		}
-		absent: {
-			exec { "perl -ni -e 'print if \$_ ne \"${l_real}\n\";' '${file}'":
-				onlyif => "grep -qFx '${l_real}' '${file}'"
->>>>>>> dfd1378a2c67199df9feb11d84b9b1d5a7f1c84d:manifests/defines/line.pp
 			}
 		}
 	}

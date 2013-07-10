@@ -20,15 +20,6 @@ To use this module, follow these directions:
 1. Your modules directory will need all the files 
    included in this repository placed under a directory 
    called "common"
-=======
-The common module installs various functions that are required by other
-modules. This module should be installed before any of the other module.
-
-To use this module, follow these directions:
-
-1. Your modules directory will need all the files included in this
-   repository placed under a directory called "common"
->>>>>>> dfd1378a2c67199df9feb11d84b9b1d5a7f1c84d
 
 2. Add the following line to manifests/site.pp:
    
