@@ -3,7 +3,7 @@
 # See LICENSE for the full license granted to you.
 
 class common {
-	module_dir { [ 'common' ]: }
+	modules_dir { [ 'common' ]: }
 
 	file {
 		# Module programmers can use /var/lib/puppet/modules/$modulename to save
