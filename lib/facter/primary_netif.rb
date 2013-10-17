@@ -52,7 +52,7 @@ if Facter.value(:internal_netif) != false
     confine :kernel => %w{Linux}
     setcode do
       iface = Facter.value(:internal_netif)
-      output = %x{/sbin/ifconfig #{iface} |head -n 2 |grep inet |awk '/:/ {print $2}' |cut -f 2 -d :}.chomp
+      output = %x{/sbin/ip a s #{iface} |grep inet |head -1 |awk '{print $2}' |cut -f 1 -d / }.chomp
       if output != ""
         output
       else
