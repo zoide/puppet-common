@@ -1,8 +1,7 @@
-# $Id: graphics.rb 4103 2011-02-24 13:28:56Z uwaechte $
 # has_nvidia_graphics.rb
 #
 
-if Facter.kernel == "Linux"
+if Facter.value('kernel') == "Linux"
     lspci = %x{which lspci}.chomp
     #exit 0 if $?.existatus != 0
     graphics = "false"
@@ -41,7 +40,7 @@ if Facter.kernel == "Linux"
             graphics
         end # setcode
     end
-elsif Facter.kernel == "Darwin"
+elsif Facter.('kernel') == "Darwin"
     graphics = %x{system_profiler SPDisplaysDataType }
     Facter.add("graphics") do
         setcode do
