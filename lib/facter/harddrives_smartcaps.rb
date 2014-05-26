@@ -1,8 +1,4 @@
-# $Id$
-
-require 'thread'
-
-uname = %x{uname}.chomp
+uname = Facter.value('kernel')
 smartctl = case uname
 when "Darwin" then "/opt/local/sbin/smartctl"
 when "FreeBSD" then "/usr/local/sbin/smartctl"
