@@ -1,9 +1,8 @@
-# $Id: 3ware.rb 2876 2009-09-22 01:33:34Z uwaechte $
 # collect info about 3ware controllers
 # loop through all controllers
 require 'thread'
 
-tw_cli = %x{which tw_cli 2>/dev/null}.chomp
+tw_cli = %x{which tw-cli 2>/dev/null}.chomp
 has_3ware=false
 all_drives = []
 if tw_cli != ""

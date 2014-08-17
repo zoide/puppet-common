@@ -37,7 +37,8 @@ Facter.add(:internal_netif) do
   confine :kernel => %w{Linux}
   setcode do
     iface = ""
-    output = %x{/sbin/ifconfig  |grep -1 10.10. |head -1 |awk '{print $1}'}.chomp
+    iaddr = Facter.value(:internal_network_address) ? Facter.value(:internal_network_address) : '10.0.0.0/8' 
+    output = %x{/sbin/ip a s to '#{iaddr}' |head -1 |awk '/:/ {print $2}'|sed -e s/:// -e s/@.*//}.chomp
     if output != ""
       output
     else
@@ -51,11 +52,23 @@ if Facter.value(:internal_netif) != false
     confine :kernel => %w{Linux}
     setcode do
       iface = Facter.value(:internal_netif)
-      output = %x{/sbin/ifconfig #{iface} |head -n 2 |grep inet |awk '/:/ {print $2}' |cut -f 2 -d :}.chomp
+      output = %x{/sbin/ip a s #{iface} |grep inet |head -1 |awk '{print $2}' |cut -f 1 -d / }.chomp
       if output != ""
-	output
+        output
       else
-	false
+        false
+      end
+    end
+  end
+  Facter.add(:internal_macaddress) do
+    confine :kernel => %w{Linux}
+    setcode do
+      iface = Facter.value(:internal_netif)
+      output = %x{/sbin/ip a s #{iface} |awk '/link\\/ether/ {print $2}'}.chomp
+      if output != ""
+        output
+      else
+        false
       end
     end
   end

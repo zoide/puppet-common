@@ -1,8 +1,4 @@
-# $Id: network_hardware.rb 3733 2010-09-24 11:21:10Z uwaechte $
-# has_nvidia_graphics.rb
-#
-
-if Facter.kernel == "Linux"
+if Facter.value('kernel') == "Linux"
   lspci = %x{which lspci}.chomp
   network = "false"
   if lspci.length > 0 and lspci = %x{#{lspci}} and lspci.match(/.*Network.*Wireless.*/)
