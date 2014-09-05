@@ -40,7 +40,7 @@ if Facter.value('kernel') == "Linux"
             graphics
         end # setcode
     end
-elsif Facter.('kernel') == "Darwin"
+elsif Facter.value('kernel') == "Darwin"
     graphics = %x{system_profiler SPDisplaysDataType }
     Facter.add("graphics") do
         setcode do
