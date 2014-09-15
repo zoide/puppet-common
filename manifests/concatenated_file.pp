@@ -30,7 +30,7 @@ define common::concatenated_file (
   } else {
     file {
       $dir_real:
-        source => "puppet://$server/common/empty",
+        source => "puppet://$server/modules/common/empty",
         checksum => mtime,
         ignore => '\.ignore',
         recurse => true, purge => true, force => true,
